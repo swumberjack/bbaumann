@@ -113,46 +113,7 @@
     <!-- Back to Top -->
     <a href="#" class="back-to-top">↑</a>
 
-    <script>
-        // Mobile menu toggle
-        const mobileToggle = document.querySelector('.mobile-menu-toggle');
-        const nav = document.querySelectorAll('.navigation');
-        mobileToggle.addEventListener('click', () => {
-            nav.forEach(n => n.classList.toggle('active'));
-        });
+<script src="../script.js"></script>
 
-        // Back to top & fixed header
-        const fixedHeader = document.querySelector('.header-fixed');
-        const backToTop = document.querySelector('.back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                fixedHeader.classList.add('visible');
-                backToTop.classList.add('visible');
-            } else {
-                fixedHeader.classList.remove('visible');
-                backToTop.classList.remove('visible');
-            }
-        });
-
-        backToTop.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({top:0, behavior:'smooth'});
-        });
-
-        // Fade-in animation
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Close mobile menu on click
-        document.querySelectorAll('.navigation a').forEach(link => {
-            link.addEventListener('click', () => {
-                nav.forEach(n => n.classList.remove('active'));
-            });
-        });
-    </script>
 </body>
 </html>
