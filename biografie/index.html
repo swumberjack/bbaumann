@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biografie | Barbara Baumann</title>
-    <!-- CSS aus dem Hauptverzeichnis -->
-    <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biografie | Barbara Baumann</title>
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <!-- Main Header -->
+    <!-- Header -->
     <header>
         <div class="header-main">
             <div class="container">
@@ -20,7 +19,7 @@
                     </div>
                     <nav>
                         <ul class="navigation">
-                            <li><a href="../">Home</a></li>
+                            <li><a href="../" >Home</a></li>
                             <li><a href="../mal-und-showroom/">Mal- und Showroom</a></li>
                             <li><a href="../bilder-galerie/">Bilder-Galerie</a></li>
                             <li><a href="../malstil/">Malstil</a></li>
@@ -29,11 +28,7 @@
                         </ul>
                     </nav>
                     <button class="mobile-menu-toggle">
-                        <div class="hamburger">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
+                        <div class="hamburger"><span></span><span></span><span></span></div>
                     </button>
                 </div>
             </div>
@@ -111,13 +106,53 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-image">
-                <img src="../logo.png" alt="Barbara Baumann Logo">
-            </div>
-            <div class="footer-text">
-                <p>© 2020 Barbara Baumann | by <a href="http://www.evonet.ch">evoNET</a></p>
-            </div>
+            <p>© 2025 Barbara Baumann | by <a href="http://www.evonet.ch">evoNET</a></p>
         </div>
     </footer>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top">↑</a>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const nav = document.querySelectorAll('.navigation');
+        mobileToggle.addEventListener('click', () => {
+            nav.forEach(n => n.classList.toggle('active'));
+        });
+
+        // Back to top & fixed header
+        const fixedHeader = document.querySelector('.header-fixed');
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                fixedHeader.classList.add('visible');
+                backToTop.classList.add('visible');
+            } else {
+                fixedHeader.classList.remove('visible');
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({top:0, behavior:'smooth'});
+        });
+
+        // Fade-in animation
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Close mobile menu on click
+        document.querySelectorAll('.navigation a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.forEach(n => n.classList.remove('active'));
+            });
+        });
+    </script>
 </body>
 </html>
