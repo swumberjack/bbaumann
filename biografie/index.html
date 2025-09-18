@@ -1,1 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biografie | Barbara Baumann</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- Main Header -->
+    <header>
+        <div class="header-main">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <a href="../index.html">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 50'><rect fill='%23ea5698' width='200' height='50'/><text x='100' y='30' text-anchor='middle' fill='white' font-size='14' font-family='Arial'>Barbara Baumann</text></svg>" alt="Barbara Baumann Logo">
+                        </a>
+                    </div>
+                    <nav>
+                        <ul class="navigation">
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../mal-und-showroom/">Mal- und Showroom</a></li>
+                            <li><a href="../bilder-galerie/">Bilder-Galerie</a></li>
+                            <li><a href="../malstil/">Malstil</a></li>
+                            <li><a href="../biografie/" class="current">Biografie</a></li>
+                            <li><a href="../kontakt/">Kontakt</a></li>
+                        </ul>
+                    </nav>
+                    <button class="mobile-menu-toggle">
+                        <div class="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Fixed Header -->
+    <div class="header-fixed">
+        <div class="container">
+            <nav>
+                <ul class="navigation">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../mal-und-showroom/">Mal- und Showroom</a></li>
+                    <li><a href="../bilder-galerie/">Bilder-Galerie</a></li>
+                    <li><a href="../malstil/">Malstil</a></li>
+                    <li><a href="../biografie/" class="current">Biografie</a></li>
+                    <li><a href="../kontakt/">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Biografie</h1>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="biography-content fade-in">
+                    <!-- Hier kommt dein Biografie-Text, wie du ihn schon hast -->
+                    <h2>1953</h2>
+                    <p>Geboren in Bern, aufgewachsen in Bern-Liebefeld</p>
+                    <!-- Restlicher Text... -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-image">
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'><circle fill='%23ea5698' cx='75' cy='75' r='70'/><text x='75' y='85' text-anchor='middle' fill='white' font-size='24' font-family='Arial'>🦋</text></svg>" alt="Schmetterling">
+            </div>
+            <div class="footer-text">
+                <p>© 2020 Barbara Baumann | by <a href="http://www.evonet.ch">evoNET</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">↑</a>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navigation = document.querySelector('.navigation');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navigation.classList.toggle('active');
+        });
+
+        // Fixed Header
+        const fixedHeader = document.querySelector('.header-fixed');
+        const backToTop = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                fixedHeader.classList.add('visible');
+                backToTop.classList.add('visible');
+            } else {
+                fixedHeader.classList.remove('visible');
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Back to Top
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Fade In Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.navigation a').forEach(link => {
+            link.addEventListener('click', () => {
+                navigation.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
 
