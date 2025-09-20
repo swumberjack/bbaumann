@@ -3,84 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BBaumann – Home</title>
+<title>Barbara Baumann – Malerin</title>
 <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<header>
+<!-- Main Header -->
+<header class="header-main">
   <div class="container">
-    <img src="logo.png" alt="Barbara Baumann Logo" class="logo">
-    <nav>
-      <ul class="navigation">
-        <li><a href="/" class="current">Home</a></li>
-        <li><a href="/mal-und-showroom/">Mal- und Showroom</a></li>
-        <li><a href="/bilder-galerie/">Bilder-Galerie</a></li>
-        <li><a href="/malstil/">Malstil</a></li>
-        <li><a href="/biografie/">Biografie</a></li>
-        <li><a href="/kontakt/">Kontakt</a></li>
-      </ul>
-    </nav>
-    <button class="mobile-menu-toggle">
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
+    <div class="header-content">
+      <div class="logo">
+        <img src="logo.png" alt="Barbara Baumann Logo">
       </div>
-    </button>
+      <nav>
+        <ul class="navigation">
+          <li><a href="/" class="current">Home</a></li>
+          <li><a href="/mal-und-showroom/">Mal- und Showroom</a></li>
+          <li><a href="/bilder-galerie/">Bilder-Galerie</a></li>
+          <li><a href="/malstil/">Malstil</a></li>
+          <li><a href="/biografie/">Biografie</a></li>
+          <li><a href="/kontakt/">Kontakt</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-toggle">
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Fixed Header -->
+<header class="header-fixed">
+  <div class="container">
+    <div class="header-content">
+      <nav>
+        <ul class="navigation">
+          <li><a href="/" class="current">Home</a></li>
+          <li><a href="/mal-und-showroom/">Mal- und Showroom</a></li>
+          <li><a href="/bilder-galerie/">Bilder-Galerie</a></li>
+          <li><a href="/malstil/">Malstil</a></li>
+          <li><a href="/biografie/">Biografie</a></li>
+          <li><a href="/kontakt/">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>
 
 <!-- Hero Section -->
 <section class="hero">
   <div class="container">
-    <h1>Willkommen bei BBaumann</h1>
-    <p>Kunstmalerin</p>
-    <a href="/kontakt/" class="btn">Kontakt aufnehmen</a>
+    <div class="hero-content">
+      <h1>Kommen Sie ins Atelier</h1>
+      <p class="hero-subtitle">und entdecken Sie die neusten pinselfrischen Arbeiten!</p>
+    </div>
   </div>
 </section>
 
-<!-- Highlights Section -->
-<section class="container">
-  <h2>Unsere Highlights</h2>
-  <div class="card">
-    <img src="images/placeholder.jpg" alt="Highlight 1">
-    <h3>Highlight 1</h3>
-    <p>Platzhaltertext für Inhalte.</p>
-  </div>
-  <div class="card">
-    <img src="images/placeholder.jpg" alt="Highlight 2">
-    <h3>Highlight 2</h3>
-    <p>Platzhaltertext für Inhalte.</p>
+<!-- Main Gallery Section -->
+<section class="gallery-section">
+  <div class="container">
+    <div class="gallery-grid">
+
+      <!-- Mal- und Showroom -->
+      <div class="gallery-item fade-in" data-link="/mal-und-showroom/">
+        <div class="gallery-image">
+          <img src="images/mal-showroom.jpg" alt="Mal- und Showroom" loading="lazy">
+          <div class="image-overlay"></div>
+        </div>
+        <div class="gallery-content">
+          <h2>Mal- und Showroom</h2>
+        </div>
+      </div>
+
+      <!-- Bilder-Galerie -->
+      <div class="gallery-item fade-in" data-link="/bilder-galerie/">
+        <div class="gallery-image">
+          <img src="images/bilder-galerie.jpg" alt="Bilder-Galerie" loading="lazy">
+          <div class="image-overlay"></div>
+        </div>
+        <div class="gallery-content">
+          <h2>Bilder-Galerie</h2>
+        </div>
+      </div>
+
+      <!-- Malstil -->
+      <div class="gallery-item fade-in" data-link="/malstil/">
+        <div class="gallery-image">
+          <img src="images/malstil.jpg" alt="Malstil" loading="lazy">
+          <div class="image-overlay"></div>
+        </div>
+        <div class="gallery-content">
+          <h2>Malstil</h2>
+        </div>
+      </div>
+
+      <!-- Biografie -->
+      <div class="gallery-item fade-in" data-link="/biografie/">
+        <div class="gallery-image">
+          <img src="images/biografie.jpg" alt="Biografie" loading="lazy">
+          <div class="image-overlay"></div>
+        </div>
+        <div class="gallery-content">
+          <h2>Biografie</h2>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
+<!-- Footer -->
 <footer>
   <div class="container">
-    <p>&copy; 2025 BBaumann – Alle Rechte vorbehalten | <a href="/impressum/" style="color:white;">Impressum</a></p>
+    <div class="footer-image">
+      <img src="images/schmet.png" alt="Schmetterling" loading="lazy">
+    </div>
+    <div class="footer-text">
+      <p>&copy; 2020 Barbara Baumann | by <a href="http://www.evonet.ch">evoNET</a></p>
+    </div>
   </div>
 </footer>
 
-<script>
-  // Mobile Menu Toggle
-  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-  const navigation = document.querySelector('.navigation');
+<!-- Back to Top Button -->
+<a href="#" class="back-to-top" title="Nach oben">↑</a>
 
-  mobileMenuToggle.addEventListener('click', () => {
-    navigation.classList.toggle('active');
-  });
-
-  // Smooth Scrolling für Anker
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if(target) {
-              target.scrollIntoView({ behavior: 'smooth' });
-          }
-      });
-  });
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>

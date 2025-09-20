@@ -1,54 +1,381 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bilder-Galerie | Barbara Baumann</title>
-    <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilder-Galerie | Barbara Baumann</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="header-main">
-            <div class="container">
-                <div class="header-content">
-                    <div class="logo">
-                        <a href="../">
-                            <img src="../logo.png" alt="Barbara Baumann Logo">
-                        </a>
-                    </div>
-                    <nav>
-                        <ul class="navigation">
-                            <li><a href="../">Home</a></li>
-                            <li><a href="../mal-und-showroom/">Mal- und Showroom</a></li>
-                            <li><a href="../bilder-galerie/" class="current">Bilder-Galerie</a></li>
-                            <li><a href="../malstil/">Malstil</a></li>
-                            <li><a href="../biografie/">Biografie</a></li>
-                            <li><a href="../kontakt/">Kontakt</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
 
-    <section class="hero">
-        <div class="container">
-            <h1>Bilder-Galerie</h1>
+<!-- Main Header -->
+<header class="header-main">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <img src="logo.png" alt="Barbara Baumann Logo">
+      </div>
+      <nav>
+        <ul class="navigation">
+          <li><a href="/">Home</a></li>
+          <li><a href="/mal-und-showroom/">Mal- und Showroom</a></li>
+          <li><a href="/bilder-galerie/" class="current">Bilder-Galerie</a></li>
+          <li><a href="/malstil/">Malstil</a></li>
+          <li><a href="/biografie/">Biografie</a></li>
+          <li><a href="/kontakt/">Kontakt</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-toggle">
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-    </section>
+      </button>
+    </div>
+  </div>
+</header>
 
-    <main class="main-content">
-        <div class="container">
-            <p>Platzhalter für Galerie Inhalte</p>
-        </div>
-    </main>
+<!-- Fixed Header -->
+<header class="header-fixed">
+  <div class="container">
+    <div class="header-content">
+      <nav>
+        <ul class="navigation">
+          <li><a href="/">Home</a></li>
+          <li><a href="/mal-und-showroom/">Mal- und Showroom</a></li>
+          <li><a href="/bilder-galerie/" class="current">Bilder-Galerie</a></li>
+          <li><a href="/malstil/">Malstil</a></li>
+          <li><a href="/biografie/">Biografie</a></li>
+          <li><a href="/kontakt/">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
 
-    <footer>
-        <div class="container">
-            <img src="../logo.png" alt="Barbara Baumann Logo">
-            <p>© 2020 Barbara Baumann | by <a href="http://www.evonet.ch">evoNET</a></p>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Bilderauswahl</h1>
+      <p class="hero-subtitle">Eine Sammlung meiner Werke aus verschiedenen Schaffensperioden</p>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Filter Section -->
+<section class="gallery-filter">
+  <div class="container">
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">Alle Bilder</button>
+      <button class="filter-btn" data-filter="recent">Ab 2016 bis Gegenwart</button>
+      <button class="filter-btn" data-filter="older">2015 und früher</button>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="gallery-section">
+  <div class="container">
+    <div class="gallery-grid" id="gallery-grid">
+      <!-- Gallery items will be loaded here dynamically -->
+    </div>
+
+    <!-- Load More Button -->
+    <div class="load-more-container">
+      <button class="load-more-btn" id="load-more">Weitere Bilder laden</button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loading-spinner">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-overlay"></div>
+  <div class="lightbox-container">
+    <button class="lightbox-close" id="lightbox-close">&times;</button>
+    <button class="lightbox-prev" id="lightbox-prev">‹</button>
+    <button class="lightbox-next" id="lightbox-next">›</button>
+    <div class="lightbox-content">
+      <img class="lightbox-image" id="lightbox-image" src="" alt="">
+      <div class="lightbox-info">
+        <h3 class="lightbox-title" id="lightbox-title"></h3>
+        <p class="lightbox-description" id="lightbox-description"></p>
+      </div>
+    </div>
+    <div class="lightbox-counter">
+      <span id="lightbox-counter">1 / 50</span>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-image">
+      <img src="images/schmet.png" alt="Schmetterling" loading="lazy">
+    </div>
+    <div class="footer-text">
+      <p>&copy; 2020 Barbara Baumann | by <a href="http://www.evonet.ch">evoNET</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top Button -->
+<a href="#" class="back-to-top" title="Nach oben">↑</a>
+
+<script>
+// Sample gallery data - replace with actual images
+const galleryImages = [
+  { src: 'images/gallery/img1.jpg', title: 'Werk 1', year: 2023, category: 'recent' },
+  { src: 'images/gallery/img2.jpg', title: 'Werk 2', year: 2022, category: 'recent' },
+  { src: 'images/gallery/img3.jpg', title: 'Werk 3', year: 2021, category: 'recent' },
+  { src: 'images/gallery/img4.jpg', title: 'Werk 4', year: 2020, category: 'recent' },
+  { src: 'images/gallery/img5.jpg', title: 'Werk 5', year: 2019, category: 'recent' },
+  { src: 'images/gallery/img6.jpg', title: 'Werk 6', year: 2018, category: 'recent' },
+  { src: 'images/gallery/img7.jpg', title: 'Werk 7', year: 2017, category: 'recent' },
+  { src: 'images/gallery/img8.jpg', title: 'Werk 8', year: 2016, category: 'recent' },
+  { src: 'images/gallery/img9.jpg', title: 'Werk 9', year: 2015, category: 'older' },
+  { src: 'images/gallery/img10.jpg', title: 'Werk 10', year: 2014, category: 'older' },
+  { src: 'images/gallery/img11.jpg', title: 'Werk 11', year: 2013, category: 'older' },
+  { src: 'images/gallery/img12.jpg', title: 'Werk 12', year: 2012, category: 'older' },
+  // Add more images as needed
+];
+
+// Gallery functionality
+class Gallery {
+  constructor() {
+    this.currentFilter = 'all';
+    this.currentPage = 0;
+    this.itemsPerPage = 12;
+    this.lightboxIndex = 0;
+    this.filteredImages = [];
+
+    this.init();
+  }
+
+  init() {
+    this.bindEvents();
+    this.loadImages();
+  }
+
+  bindEvents() {
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        this.handleFilter(e.target.dataset.filter);
+      });
+    });
+
+    // Load more button
+    document.getElementById('load-more').addEventListener('click', () => {
+      this.loadMoreImages();
+    });
+
+    // Lightbox events
+    document.getElementById('lightbox-close').addEventListener('click', () => {
+      this.closeLightbox();
+    });
+
+    document.getElementById('lightbox-prev').addEventListener('click', () => {
+      this.showPrevImage();
+    });
+
+    document.getElementById('lightbox-next').addEventListener('click', () => {
+      this.showNextImage();
+    });
+
+    // Close lightbox on overlay click
+    document.querySelector('.lightbox-overlay').addEventListener('click', () => {
+      this.closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('lightbox').classList.contains('active')) {
+        switch(e.key) {
+          case 'Escape':
+            this.closeLightbox();
+            break;
+          case 'ArrowLeft':
+            this.showPrevImage();
+            break;
+          case 'ArrowRight':
+            this.showNextImage();
+            break;
+        }
+      }
+    });
+  }
+
+  handleFilter(filter) {
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
+
+    this.currentFilter = filter;
+    this.currentPage = 0;
+
+    // Clear gallery
+    document.getElementById('gallery-grid').innerHTML = '';
+
+    this.loadImages();
+  }
+
+  getFilteredImages() {
+    if (this.currentFilter === 'all') {
+      return galleryImages;
+    }
+    return galleryImages.filter(img => img.category === this.currentFilter);
+  }
+
+  loadImages() {
+    this.showLoading();
+    this.filteredImages = this.getFilteredImages();
+
+    // Simulate loading delay
+    setTimeout(() => {
+      this.renderImages();
+      this.hideLoading();
+    }, 500);
+  }
+
+  loadMoreImages() {
+    this.currentPage++;
+    this.showLoading();
+
+    setTimeout(() => {
+      this.renderImages();
+      this.hideLoading();
+    }, 500);
+  }
+
+  renderImages() {
+    const startIndex = this.currentPage * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    const imagesToShow = this.filteredImages.slice(startIndex, endIndex);
+
+    const galleryGrid = document.getElementById('gallery-grid');
+
+    imagesToShow.forEach((image, index) => {
+      const galleryItem = this.createGalleryItem(image, startIndex + index);
+      galleryItem.classList.add('fade-in');
+      galleryGrid.appendChild(galleryItem);
+
+      // Trigger animation
+      setTimeout(() => {
+        galleryItem.classList.add('visible');
+      }, 100 * (index + 1));
+    });
+
+    // Hide load more button if no more images
+    const loadMoreBtn = document.getElementById('load-more');
+    if (endIndex >= this.filteredImages.length) {
+      loadMoreBtn.style.display = 'none';
+    } else {
+      loadMoreBtn.style.display = 'block';
+    }
+  }
+
+  createGalleryItem(image, index) {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.innerHTML = `
+      <div class="gallery-image">
+        <img src="${image.src}" alt="${image.title}" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkJpbGQgbmljaHQgdmVyZsO8Z2JhcjwvdGV4dD4KPC9zdmc+';">
+        <div class="image-overlay">
+          <div class="overlay-content">
+            <h3>${image.title}</h3>
+            <p>${image.year}</p>
+            <button class="view-btn">Vergrößern</button>
+          </div>
         </div>
-    </footer>
+      </div>
+    `;
+
+    // Add click event for lightbox
+    item.addEventListener('click', () => {
+      this.openLightbox(index);
+    });
+
+    return item;
+  }
+
+  openLightbox(index) {
+    this.lightboxIndex = index;
+    const image = this.filteredImages[index];
+
+    document.getElementById('lightbox-image').src = image.src;
+    document.getElementById('lightbox-title').textContent = image.title;
+    document.getElementById('lightbox-description').textContent = `Jahr: ${image.year}`;
+    document.getElementById('lightbox-counter').textContent = `${index + 1} / ${this.filteredImages.length}`;
+
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  showPrevImage() {
+    if (this.lightboxIndex > 0) {
+      this.lightboxIndex--;
+      this.updateLightboxImage();
+    } else {
+      // Loop to last image
+      this.lightboxIndex = this.filteredImages.length - 1;
+      this.updateLightboxImage();
+    }
+  }
+
+  showNextImage() {
+    if (this.lightboxIndex < this.filteredImages.length - 1) {
+      this.lightboxIndex++;
+      this.updateLightboxImage();
+    } else {
+      // Loop to first image
+      this.lightboxIndex = 0;
+      this.updateLightboxImage();
+    }
+  }
+
+  updateLightboxImage() {
+    const image = this.filteredImages[this.lightboxIndex];
+
+    document.getElementById('lightbox-image').src = image.src;
+    document.getElementById('lightbox-title').textContent = image.title;
+    document.getElementById('lightbox-description').textContent = `Jahr: ${image.year}`;
+    document.getElementById('lightbox-counter').textContent = `${this.lightboxIndex + 1} / ${this.filteredImages.length}`;
+  }
+
+  showLoading() {
+    document.getElementById('loading-spinner').classList.add('visible');
+  }
+
+  hideLoading() {
+    document.getElementById('loading-spinner').classList.remove('visible');
+  }
+}
+
+// Initialize gallery when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  new Gallery();
+});
+</script>
+
+<script src="../script.js"></script>
+
 </body>
 </html>
-
