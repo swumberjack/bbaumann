@@ -1,54 +1,120 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontakt | Barbara Baumann</title>
-    <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt | Barbara Baumann</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="header-main">
-            <div class="container">
-                <div class="header-content">
-                    <div class="logo">
-                        <a href="../">
-                            <img src="../logo.png" alt="Barbara Baumann Logo">
-                        </a>
-                    </div>
-                    <nav>
-                        <ul class="navigation">
-                            <li><a href="../">Home</a></li>
-                            <li><a href="../mal-und-showroom/">Mal- und Showroom</a></li>
-                            <li><a href="../bilder-galerie/">Bilder-Galerie</a></li>
-                            <li><a href="../malstil/">Malstil</a></li>
-                            <li><a href="../biografie/">Biografie</a></li>
-                            <li><a href="../kontakt/" class="current">Kontakt</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
 
-    <section class="hero">
-        <div class="container">
-            <h1>Kontakt</h1>
+<!-- Main Header -->
+<header class="header-main">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <img src="../logo.png" alt="Barbara Baumann Logo">
+      </div>
+      <nav>
+        <ul class="navigation">
+          <li><a href="/">Home</a></li>
+          <li><a href="/bilder-galerie/">Bilder-Galerie</a></li>
+          <li><a href="/malstil/">Malstil</a></li>
+          <li><a href="/biografie/">Biografie</a></li>
+          <li><a href="/kontakt/" class="current">Kontakt</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-toggle">
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-    </section>
+      </button>
+    </div>
+  </div>
+</header>
 
-    <main class="main-content">
-        <div class="container">
-            <p>Platzhalter für Kontaktinformationen</p>
-        </div>
-    </main>
+<!-- Fixed Header -->
+<header class="header-fixed">
+  <div class="container">
+    <div class="header-content">
+      <nav>
+        <ul class="navigation">
+          <li><a href="/">Home</a></li>
+          <li><a href="/bilder-galerie/">Bilder-Galerie</a></li>
+          <li><a href="/malstil/">Malstil</a></li>
+          <li><a href="/biografie/">Biografie</a></li>
+          <li><a href="/kontakt/" class="current">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
 
-    <footer>
-        <div class="container">
-            <img src="../logo.png" alt="Barbara Baumann Logo">
-            <p>© 2020 Barbara Baumann | by <a href="http://www.evonet.ch">evoNET</a></p>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Kontakt</h1>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="main-content">
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="contact-grid fade-in">
+        <div class="contact-info">
+          <h2>Mal- und Showroom</h2>
+          <div class="contact-details">
+            <p class="contact-name">Barbara Baumann – Seiling</p>
+            <p class="contact-address">Im Obermoos 12<br>3067 Boll</p>
+            <p class="contact-email">
+              <a href="mailto:cu@bbaumann.ch">cu@bbaumann.ch</a>
+            </p>
+          </div>
         </div>
-    </footer>
+        <div class="contact-image">
+          <div class="image-container">
+            <img src="../images/showroom.jpg" alt="Mal- und Showroom" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <div class="map-section fade-in">
+        <div class="map-placeholder">
+          <div class="map-info">
+            <h3>Standort</h3>
+            <p>Im Obermoos 12<br>3067 Boll<br>Schweiz</p>
+            <p class="map-note">Besuche nach Vereinbarung</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-image">
+      <img src="../images/schmet.png" alt="Schmetterling" loading="lazy">
+    </div>
+    <div class="footer-text">
+      <p>&copy; 2020 Barbara Baumann | by <a href="http://www.evonet.ch">evoNET</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top Button -->
+<a href="#" class="back-to-top" title="Nach oben">↑</a>
+
+<script src="../script.js"></script>
+
 </body>
 </html>
-
