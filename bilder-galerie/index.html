@@ -16,12 +16,11 @@
   <div class="container">
     <div class="header-content">
       <div class="logo">
-        <img src="logo.png" alt="Barbara Baumann Logo">
+        <img src="../logo.png" alt="Barbara Baumann Logo">
       </div>
       <nav>
         <ul class="navigation">
           <li><a href="/">Home</a></li>
-          <li><a href="/mal-und-showroom/">Mal- und Showroom</a></li>
           <li><a href="/bilder-galerie/" class="current">Bilder-Galerie</a></li>
           <li><a href="/malstil/">Malstil</a></li>
           <li><a href="/biografie/">Biografie</a></li>
@@ -46,7 +45,6 @@
       <nav>
         <ul class="navigation">
           <li><a href="/">Home</a></li>
-          <li><a href="/mal-und-showroom/">Mal- und Showroom</a></li>
           <li><a href="/bilder-galerie/" class="current">Bilder-Galerie</a></li>
           <li><a href="/malstil/">Malstil</a></li>
           <li><a href="/biografie/">Biografie</a></li>
@@ -121,7 +119,7 @@
 <footer>
   <div class="container">
     <div class="footer-image">
-      <img src="images/schmet.png" alt="Schmetterling" loading="lazy">
+      <img src="../images/schmet.png" alt="Schmetterling" loading="lazy">
     </div>
     <div class="footer-text">
       <p>&copy; 2020 Barbara Baumann | by <a href="http://www.evonet.ch">evoNET</a></p>
@@ -133,30 +131,24 @@
 <a href="#" class="back-to-top" title="Nach oben">↑</a>
 
 <script>
-// Sample gallery data - replace with actual images
-const galleryImages = [
-  { src: 'images/gallery/img1.jpg', title: 'Werk 1', year: 2023, category: 'recent' },
-  { src: 'images/gallery/img2.jpg', title: 'Werk 2', year: 2022, category: 'recent' },
-  { src: 'images/gallery/img3.jpg', title: 'Werk 3', year: 2021, category: 'recent' },
-  { src: 'images/gallery/img4.jpg', title: 'Werk 4', year: 2020, category: 'recent' },
-  { src: 'images/gallery/img5.jpg', title: 'Werk 5', year: 2019, category: 'recent' },
-  { src: 'images/gallery/img6.jpg', title: 'Werk 6', year: 2018, category: 'recent' },
-  { src: 'images/gallery/img7.jpg', title: 'Werk 7', year: 2017, category: 'recent' },
-  { src: 'images/gallery/img8.jpg', title: 'Werk 8', year: 2016, category: 'recent' },
-  { src: 'images/gallery/img9.jpg', title: 'Werk 9', year: 2015, category: 'older' },
-  { src: 'images/gallery/img10.jpg', title: 'Werk 10', year: 2014, category: 'older' },
-  { src: 'images/gallery/img11.jpg', title: 'Werk 11', year: 2013, category: 'older' },
-  { src: 'images/gallery/img12.jpg', title: 'Werk 12', year: 2012, category: 'older' },
-  // Add more images as needed
-];
+// Configuration - Define possible image file extensions and folder structure
+const config = {
+  folders: {
+    recent: '../images/gallery/recent/',  // Folder for images 2016+
+    older: '../images/gallery/older/'    // Folder for images 2015-
+  },
+  extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif'], // Supported image formats
+  itemsPerPage: 12
+};
 
-// Gallery functionality
+// Gallery functionality with automatic folder scanning
 class Gallery {
   constructor() {
     this.currentFilter = 'all';
     this.currentPage = 0;
-    this.itemsPerPage = 12;
+    this.itemsPerPage = config.itemsPerPage;
     this.lightboxIndex = 0;
+    this.allImages = [];
     this.filteredImages = [];
 
     this.init();
@@ -164,7 +156,7 @@ class Gallery {
 
   init() {
     this.bindEvents();
-    this.loadImages();
+    this.scanFoldersForImages();
   }
 
   bindEvents() {
@@ -216,6 +208,97 @@ class Gallery {
     });
   }
 
+  // Automatically scan folders for images
+  async scanFoldersForImages() {
+    this.showLoading();
+
+    try {
+      // Scan recent folder (2016+)
+      const recentImages = await this.scanFolder('recent', config.folders.recent);
+
+      // Scan older folder (2015-)
+      const olderImages = await this.scanFolder('older', config.folders.older);
+
+      // Combine all images
+      this.allImages = [...recentImages, ...olderImages];
+
+      // Sort by filename for consistent ordering
+      this.allImages.sort((a, b) => a.filename.localeCompare(b.filename));
+
+      this.loadImages();
+    } catch (error) {
+      console.error('Error scanning folders:', error);
+      this.showErrorMessage();
+    }
+  }
+
+  // Scan individual folder for images
+  async scanFolder(category, folderPath) {
+    const images = [];
+
+    // Try to load common image files (this approach works for static hosting)
+    // We'll generate potential filenames and check if they exist
+    const commonFilenames = await this.generatePotentialFilenames();
+
+    for (const filename of commonFilenames) {
+      for (const ext of config.extensions) {
+        const fullPath = `${folderPath}${filename}.${ext}`;
+
+        if (await this.imageExists(fullPath)) {
+          images.push({
+            src: fullPath,
+            category: category,
+            filename: filename,
+            title: this.generateTitle(filename)
+          });
+        }
+      }
+    }
+
+    return images;
+  }
+
+  // Generate potential filenames to check for
+  async generatePotentialFilenames() {
+    // This is a simple approach - try common naming patterns
+    const filenames = [];
+
+    // Try numbered files (img1, img2, etc.)
+    for (let i = 1; i <= 50; i++) {
+      filenames.push(`img${i}`);
+      filenames.push(`image${i}`);
+      filenames.push(`bild${i}`);
+      filenames.push(`werk${i}`);
+      filenames.push(`${i.toString().padStart(2, '0')}`); // 01, 02, 03, etc.
+    }
+
+    // Try letter patterns (a, b, c, etc.)
+    for (let i = 97; i <= 122; i++) { // a-z
+      filenames.push(String.fromCharCode(i));
+    }
+
+    return filenames;
+  }
+
+  // Check if an image exists at the given URL
+  async imageExists(url) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
+
+      // Timeout after 2 seconds
+      setTimeout(() => resolve(false), 2000);
+    });
+  }
+
+  // Generate a title from filename
+  generateTitle(filename) {
+    // Remove numbers and make it more readable
+    return filename.replace(/\d+/g, '').replace(/[_-]/g, ' ').trim() || 'Kunstwerk';
+  }
+
   handleFilter(filter) {
     // Update active button
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -234,20 +317,15 @@ class Gallery {
 
   getFilteredImages() {
     if (this.currentFilter === 'all') {
-      return galleryImages;
+      return this.allImages;
     }
-    return galleryImages.filter(img => img.category === this.currentFilter);
+    return this.allImages.filter(img => img.category === this.currentFilter);
   }
 
   loadImages() {
-    this.showLoading();
     this.filteredImages = this.getFilteredImages();
-
-    // Simulate loading delay
-    setTimeout(() => {
-      this.renderImages();
-      this.hideLoading();
-    }, 500);
+    this.renderImages();
+    this.hideLoading();
   }
 
   loadMoreImages() {
@@ -257,7 +335,7 @@ class Gallery {
     setTimeout(() => {
       this.renderImages();
       this.hideLoading();
-    }, 500);
+    }, 300);
   }
 
   renderImages() {
@@ -266,6 +344,11 @@ class Gallery {
     const imagesToShow = this.filteredImages.slice(startIndex, endIndex);
 
     const galleryGrid = document.getElementById('gallery-grid');
+
+    if (imagesToShow.length === 0 && this.currentPage === 0) {
+      this.showNoImagesMessage();
+      return;
+    }
 
     imagesToShow.forEach((image, index) => {
       const galleryItem = this.createGalleryItem(image, startIndex + index);
@@ -292,11 +375,11 @@ class Gallery {
     item.className = 'gallery-item';
     item.innerHTML = `
       <div class="gallery-image">
-        <img src="${image.src}" alt="${image.title}" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkJpbGQgbmljaHQgdmVyZsO8Z2JhcjwvdGV4dD4KPC9zdmc+';">
+        <img src="${image.src}" alt="${image.title}" loading="lazy">
         <div class="image-overlay">
           <div class="overlay-content">
             <h3>${image.title}</h3>
-            <p>${image.year}</p>
+            <p>${image.category === 'recent' ? '2016+' : '2015-'}</p>
             <button class="view-btn">Vergrößern</button>
           </div>
         </div>
@@ -317,7 +400,7 @@ class Gallery {
 
     document.getElementById('lightbox-image').src = image.src;
     document.getElementById('lightbox-title').textContent = image.title;
-    document.getElementById('lightbox-description').textContent = `Jahr: ${image.year}`;
+    document.getElementById('lightbox-description').textContent = `Kategorie: ${image.category === 'recent' ? 'Ab 2016 bis Gegenwart' : '2015 und früher'}`;
     document.getElementById('lightbox-counter').textContent = `${index + 1} / ${this.filteredImages.length}`;
 
     document.getElementById('lightbox').classList.add('active');
@@ -356,7 +439,7 @@ class Gallery {
 
     document.getElementById('lightbox-image').src = image.src;
     document.getElementById('lightbox-title').textContent = image.title;
-    document.getElementById('lightbox-description').textContent = `Jahr: ${image.year}`;
+    document.getElementById('lightbox-description').textContent = `Kategorie: ${image.category === 'recent' ? 'Ab 2016 bis Gegenwart' : '2015 und früher'}`;
     document.getElementById('lightbox-counter').textContent = `${this.lightboxIndex + 1} / ${this.filteredImages.length}`;
   }
 
@@ -366,6 +449,31 @@ class Gallery {
 
   hideLoading() {
     document.getElementById('loading-spinner').classList.remove('visible');
+  }
+
+  showErrorMessage() {
+    const galleryGrid = document.getElementById('gallery-grid');
+    galleryGrid.innerHTML = `
+      <div class="error-message">
+        <h3>Fehler beim Laden der Bilder</h3>
+        <p>Die Bildergalerie konnte nicht geladen werden. Bitte versuchen Sie es später erneut.</p>
+      </div>
+    `;
+    this.hideLoading();
+  }
+
+  showNoImagesMessage() {
+    const galleryGrid = document.getElementById('gallery-grid');
+    const categoryText = this.currentFilter === 'all' ? 'in dieser Galerie' :
+                        this.currentFilter === 'recent' ? 'in der Kategorie "Ab 2016 bis Gegenwart"' :
+                        'in der Kategorie "2015 und früher"';
+
+    galleryGrid.innerHTML = `
+      <div class="no-images-message">
+        <h3>Keine Bilder gefunden</h3>
+        <p>Momentan sind keine Bilder ${categoryText} verfügbar.</p>
+      </div>
+    `;
   }
 }
 
